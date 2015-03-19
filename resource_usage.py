@@ -2,6 +2,8 @@ import sys
 
 from openpyxl import Workbook
 from openpyxl import load_workbook
+from openpyxl.styles import Font, Color
+from openpyxl.styles import colors
 
 class Map():
     def __init__(self,line,stype):
@@ -81,18 +83,22 @@ for _map in maps:
             rom_usage=rom_usage+_map.size
 
 
-s_r=ws_summary.get_highest_row()+2
+s_r=ws_summary.get_highest_row()+3
 s_c=ws_summary.get_highest_column()
+
+summary_title_font= Font(color=colors.RED)
+ws_summary.cell(row = s_r-1, column = 5).value=input_file
+ws_summary.cell(row = s_r-1, column = 5).font=summary_title_font
 
 ws_summary.cell(row = s_r, column = 5).value="Resource"
 ws_summary.cell(row = s_r, column = 6).value="Bytes"
 ws_summary.cell(row = s_r, column = 7).value="KBytes"
-ws_summary.cell(row = s_r, column = 8).value="MAX KB"
+
 
 ws_summary.cell(row = s_r+1, column = 5).value="RAM"
 ws_summary.cell(row = s_r+1, column = 6).value=ram_usage
 ws_summary.cell(row = s_r+1, column = 7).value=ram_usage/1024
-ws_summary.cell(row = s_r+1, column = 8).value="MAX KB"
+
 
 
 ws_summary.cell(row = s_r+2, column = 5).value="ROM"
